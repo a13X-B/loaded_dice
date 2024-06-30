@@ -63,11 +63,13 @@ function ld_api.random_gen(d, rng, fn)
 	return d:sample(rng:random(),rng:random())
 end
 
-
 local ld_mt = {__index = ld_api}
 
 return {
-	new_die = function()
-		return setmetatable({weights = {}, alias = {}, prob = {}}, ld_mt)
+	new_die = function(w, ...)
+		local wt
+		if type(w) == "table" then wt = w end
+		if type(w) == "number" then wt = {w, ...} end
+		return setmetatable({weights=wt or {}, alias={}, prob={}, dirty=true}, ld_mt)
 	end
 }
