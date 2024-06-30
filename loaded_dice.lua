@@ -5,7 +5,8 @@ function ld_api.add(d,w)
 	d.dirty = true
 end
 
-function ld_api.replace(d,i,w)
+function ld_api.set(d,i,w)
+	assert(d.weights[i], "can't set a weight that doesn't exist yet")
 	d.weights[i] = w
 	d.dirty = true
 end
